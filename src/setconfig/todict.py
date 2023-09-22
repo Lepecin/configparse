@@ -70,6 +70,6 @@ def gen_constants(nest_dict: NestConfig) -> list[str]:
     for key, value in nest_dict.items():
         name_constant = key_to_constant(key)
         name_data = value.__class__.__name__
-        lines.append(f"{name_constant}: {name_data}")
+        lines.append(f"{name_constant}: {name_data}" + "\n")
 
     return lines
