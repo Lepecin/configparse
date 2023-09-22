@@ -5,7 +5,7 @@ from .todict import nest_dict, key_to_identifier
 from ..internalload import Config
 
 ARG_PREFIX = "--"
-ARG_CONFIG_PATH = "config"
+ARG_CONFIG_PATH = "config_path"
 
 
 def get_config_path(
