@@ -1,4 +1,4 @@
-from seelconfigparse import ConfigManager, ConfigLoader
+from lepecinconfigparse import ConfigManager, ConfigLoader
 
 import pathlib
 
