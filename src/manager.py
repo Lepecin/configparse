@@ -12,20 +12,14 @@ class ConfigManager:
     """
 
     path_internal: str
-    path_config: str | None
-    path_constants: str | None
 
     def __init__(
         self: Self,
         path_internal: str,
         config_loader: ConfigLoader,
-        path_config: str | None = None,
-        path_constants: str | None = None,
     ) -> None:
         self.path_internal = path_internal
         self.config_loader = config_loader
-        self.path_config = path_config
-        self.path_constants = path_constants
 
     def load_config_from(self: Self, config_path: str) -> Config:
         return self.config_loader.load(config_path)
@@ -33,11 +27,11 @@ class ConfigManager:
     def save_config_at(self: Self, internal_path: str, config: Config):
         self.config_loader.save(internal_path, config)
 
-    def set_internal_config(self: Self):
-        if self.path_config is None:
+    def set_internal_config(self: Self, path_config: str | None = None):
+        if path_config is None:
             args, rest = get_config_path()
         else:
-            args, rest = askfor_config_path(self.path_config)
+            args, rest = askfor_config_path(path_config)
 
         config_path: str = args.config_path
 
@@ -58,12 +52,9 @@ class ConfigManager:
         for line in lines:
             exec(line, globals())
 
-    def save_internal_constants(self: Self):
-        if self.path_constants is None:
-            raise ValueError(f"{self.__name__} has no path_constants variable set.")
-
+    def save_internal_constants(self: Self, path_constants: str):
         config = self.load_config_from(self.path_internal)
 
         lines = gen_constants(nest_dict(config))
-        with open(self.path_constants, "w") as file:
+        with open(path_constants, "w") as file:
             file.writelines(lines)
