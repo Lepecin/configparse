@@ -1,7 +1,7 @@
 NAME_CONFIG = "config"
 NAME_NAMESPACE = "args"
 
-from .nesting import NestConfig
+from .nesting import NestConfig, Config
 from .keyconvert import (
     key_to_constant,
     key_to_dictindex,
@@ -11,15 +11,8 @@ from .keyconvert import (
 
 def gen_getdict(
     nest_dict: NestConfig,
-    name_config: str = NAME_CONFIG,
-) -> list[str]:
-    lines: list[str] = []
-    for key in nest_dict:
-        name_constant = key_to_constant(key)
-        name_dict = name_config + key_to_dictindex(key)
-        lines.append(f"{name_constant} = {name_dict}")
-
-    return lines
+) -> Config:
+    return {key_to_constant(key): value for key, value in nest_dict.items()}
 
 
 def gen_setdict(

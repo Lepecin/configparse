@@ -45,12 +45,10 @@ class ConfigManager:
 
         self.save_config_at(self.path_internal, config)
 
-    def load_internal_config(self: Self):
+    def load_internal_config(self: Self) -> Config:
         config = self.load_config_from(self.path_internal)
 
-        lines = gen_getdict(nest_dict(config))
-        for line in lines:
-            exec(line, globals())
+        return gen_getdict(nest_dict(config))
 
     def save_internal_constants(self: Self, path_constants: str):
         config = self.load_config_from(self.path_internal)
