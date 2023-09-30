@@ -38,6 +38,7 @@ def askfor_config_path(
         argument,
         nargs="?",
         const=path_config,
+        default=path_config,
         type=str,
         help="Path to config file of experiment",
     )
