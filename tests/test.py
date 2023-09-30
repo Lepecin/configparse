@@ -1,4 +1,4 @@
-from lepecinconfigparse import ConfigManager, JsonConfigLoader
+from src import ConfigManager, JsonConfigLoader
 
 import pathlib
 
@@ -11,7 +11,6 @@ manager = ConfigManager(
     path_internal,
     JsonConfigLoader(),
 )
-
 
 if __name__ == "__main__":
     manager.set_internal_config(path_config)
