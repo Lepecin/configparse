@@ -1,8 +1,7 @@
 import argparse
 from argparse import Namespace
 
-from .todict import nest_dict, key_to_identifier
-from ..internalload import Config
+from .nesting import nest_dict, key_to_identifier, Config
 
 ARG_PREFIX = "--"
 ARG_CONFIG_PATH = "config_path"
@@ -19,6 +18,26 @@ def get_config_path(
     parser.add_argument(
         argument,
         required=True,
+        type=str,
+        help="Path to config file of experiment",
+    )
+
+    return parser.parse_known_args()
+
+
+def askfor_config_path(
+    path_config: str,
+    arg_prefix: str = ARG_PREFIX,
+    arg_config_path: str = ARG_CONFIG_PATH,
+) -> tuple[Namespace, list[str]]:
+    parser = argparse.ArgumentParser()
+
+    argument = arg_prefix + arg_config_path
+
+    parser.add_argument(
+        argument,
+        nargs="?",
+        const=path_config,
         type=str,
         help="Path to config file of experiment",
     )

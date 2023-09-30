@@ -1,41 +1,12 @@
-from typing import Any
-
-from ..internalload import Config
-
 NAME_CONFIG = "config"
 NAME_NAMESPACE = "args"
 
-NestKey = tuple[str, ...]
-NestConfig = dict[NestKey, Any]
-
-
-def nest_dict(
-    config: Config,
-    keys: NestKey = (),
-) -> NestConfig:
-    new_dict = {}
-    for key, value in config.items():
-        assert isinstance(key, str), f"keys must be strings, get {key}"
-
-        if not isinstance(value, dict):
-            new_dict.update({keys + (key,): value})
-        else:
-            new_dict.update(nest_dict(value, keys + (key,)))
-    return new_dict
-
-
-def key_to_identifier(key: NestKey) -> str:
-    identifier = "_".join(key)
-    assert identifier.isidentifier(), f"'{identifier}' is not an identifier"
-    return identifier
-
-
-def key_to_constant(key: NestKey) -> str:
-    return key_to_identifier(key).upper()
-
-
-def key_to_dictindex(key: NestKey) -> str:
-    return "".join([f"[{name.__repr__()}]" for name in key])
+from .nesting import NestConfig
+from .keyconvert import (
+    key_to_constant,
+    key_to_dictindex,
+    key_to_identifier,
+)
 
 
 def gen_getdict(
