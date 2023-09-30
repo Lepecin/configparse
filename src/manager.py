@@ -2,6 +2,7 @@ from typing import Self
 
 from .argparsing import get_config_path, get_args, askfor_config_path
 from .nesting import Config, gen_setdict, nest_dict, gen_getdict, gen_constants
+from .loaders import ConfigLoader
 
 
 class ConfigManager:
@@ -17,18 +18,20 @@ class ConfigManager:
     def __init__(
         self: Self,
         path_internal: str,
+        config_loader: ConfigLoader,
         path_config: str | None = None,
         path_constants: str | None = None,
     ) -> None:
         self.path_internal = path_internal
+        self.config_loader = config_loader
         self.path_config = path_config
         self.path_constants = path_constants
 
     def load_config_from(self: Self, config_path: str) -> Config:
-        pass
+        return self.config_loader.load(config_path)
 
     def save_config_at(self: Self, internal_path: str, config: Config):
-        pass
+        self.config_loader.save(internal_path, config)
 
     def set_internal_config(self: Self):
         if self.path_config is None:
