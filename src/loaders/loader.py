@@ -5,7 +5,8 @@ Config = dict[str, Any]
 
 class ConfigLoader:
     def load(self: Self, config_path: str) -> Config:
-        pass
+        print(f"Pretend load from {config_path}")
+        return {"hello": {"hey": 2, "ho": 3}, "sup": 5}
 
     def save(self: Self, config_path: str, config: Config):
-        pass
+        print(f"Pretend saved to {config_path}")
