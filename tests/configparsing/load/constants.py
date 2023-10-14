@@ -1,0 +1,4 @@
+HELLO_HEY: int
+HELLO_HO: int
+HELLO_YEET_HALO: int
+SUP: int
