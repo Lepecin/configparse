@@ -1,56 +1,54 @@
 import argparse
-from argparse import Namespace
 
-from .nesting import nest_dict, key_to_identifier, Config
+from .nesting import (
+    Config,
+    nest_dict,
+    gen_setdict,
+    key_to_identifier,
+)
 
 ARG_PREFIX = "--"
 ARG_CONFIG_PATH = "config_path"
 
 
 def get_config_path(
+    path_default: str | None = None,
     arg_prefix: str = ARG_PREFIX,
     arg_config_path: str = ARG_CONFIG_PATH,
-) -> tuple[Namespace, list[str]]:
+) -> tuple[str, list[str]]:
     parser = argparse.ArgumentParser()
 
     argument = arg_prefix + arg_config_path
 
-    parser.add_argument(
-        argument,
-        required=True,
-        type=str,
-        help="Path to config file of experiment",
-    )
+    HELP_MESSAGE = "Path to config file."
 
-    return parser.parse_known_args()
+    if not path_default is None:
+        parser.add_argument(
+            argument,
+            required=False,
+            default=path_default,
+            type=str,
+            help=HELP_MESSAGE,
+        )
+    else:
+        parser.add_argument(
+            argument,
+            required=True,
+            type=str,
+            help=HELP_MESSAGE,
+        )
 
+    args, rest = parser.parse_known_args()
+    path: str = args.__dict__[arg_config_path]
 
-def askfor_config_path(
-    path_config: str,
-    arg_prefix: str = ARG_PREFIX,
-    arg_config_path: str = ARG_CONFIG_PATH,
-) -> tuple[Namespace, list[str]]:
-    parser = argparse.ArgumentParser()
-
-    argument = arg_prefix + arg_config_path
-
-    parser.add_argument(
-        argument,
-        nargs="?",
-        const=path_config,
-        default=path_config,
-        type=str,
-        help="Path to config file of experiment",
-    )
-
-    return parser.parse_known_args()
+    return path, rest
 
 
 def get_args(
     config: Config,
     rest: list[str],
     arg_prefix: str = ARG_PREFIX,
-) -> Namespace:
+) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     config_nest = nest_dict(config)
@@ -75,8 +73,8 @@ def get_args(
 
     args = parser.parse_args(rest)
 
-    for key, value in args.__dict__.items():
-        if not value is None:
-            config.update({key: value})
+    config.update(
+        {key: value for key, value in args.__dict__.items() if not value is None}
+    )
 
-    return Namespace(**config)
+    return argparse.Namespace(**config)
