@@ -1,4 +1,4 @@
-from typing_extensions import Self
+from typing import Self
 
 from .loaders import ConfigLoader
 from .nesting import Config, nest_dict, gen_getdict, gen_constants

@@ -1,5 +1,5 @@
 import json
-from typing_extensions import Self
+from typing import Self
 
 from .types import Config
 from .abstract import ConfigLoader
