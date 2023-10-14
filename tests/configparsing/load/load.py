@@ -2,7 +2,7 @@ import pathlib
 
 from lepconfigparse import ConfigManager, JsonConfigLoader
 
-path_internal = (pathlib.Path(__file__).parent / "config.json").__str__()
+path_internal = (pathlib.Path(__file__).parent.parent / "save/config.json").__str__()
 
 manager = ConfigManager(
     path_internal,
