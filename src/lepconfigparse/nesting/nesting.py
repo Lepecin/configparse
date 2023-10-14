@@ -1,8 +1,4 @@
-from typing import Any
-
-Config = dict[str, Any]
-NestKey = tuple[str, ...]
-NestConfig = dict[NestKey, Any]
+from .types import Config, NestKey, NestConfig
 
 
 def nest_dict(
