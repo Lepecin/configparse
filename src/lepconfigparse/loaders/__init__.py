@@ -1,2 +1,3 @@
-from .loader import ConfigLoader
 from .json import JsonConfigLoader
+from .loader import TestConfigLoader
+from .abstract import ConfigLoader
