@@ -1,13 +1,4 @@
 # Environment
+__pycache__
 .venv
 .vscode
-
-# Testing
-__pycache__
-config.json
-internal-config.json
-constants.py
-
-# Packaging
-dist
-lepecinconfigparse.egg-info
