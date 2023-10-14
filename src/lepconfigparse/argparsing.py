@@ -78,3 +78,10 @@ def get_args(
     )
 
     return argparse.Namespace(**config)
+
+
+def args_to_config(config: Config, args: argparse.Namespace) -> Config:
+    lines = gen_setdict(nest_dict(config))
+    for line in lines:
+        exec(line)
+    return config
