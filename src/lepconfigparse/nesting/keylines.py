@@ -1,12 +1,12 @@
-NAME_CONFIG = "config"
-NAME_NAMESPACE = "args"
-
 from .nesting import NestConfig, Config
 from .keyconvert import (
     key_to_constant,
     key_to_dictindex,
     key_to_identifier,
 )
+
+NAME_CONFIG = "config"
+NAME_NAMESPACE = "args"
 
 
 def gen_getdict(
