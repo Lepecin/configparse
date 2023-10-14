@@ -1,10 +1,10 @@
 from typing_extensions import Self
 
 from .types import Config
-from .abstract import ConfigLoaderAbstract as __ConfigLoaderAbstract
+from .abstract import ConfigLoader
 
 
-class TestConfigLoader(__ConfigLoaderAbstract):
+class TestConfigLoader(ConfigLoader):
     def load(self: Self, path: str) -> Config:
         print(f"Load config from {path}")
 
