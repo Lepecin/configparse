@@ -1,2 +1,2 @@
 from .manager import ConfigManager
-from .loaders import ConfigLoader, JsonConfigLoader
+from .loaders import ConfigLoader, JsonConfigLoader, TestConfigLoader
