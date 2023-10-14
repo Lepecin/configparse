@@ -23,3 +23,7 @@ class ConfigLoaderAbstract(ABC):
     @abstractmethod
     def save(self: Self, path: str, config: Config):
         pass
+
+
+class ConfigLoader(ConfigLoaderAbstract):
+    pass
