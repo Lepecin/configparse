@@ -1,4 +1,4 @@
-from .nesting import NestKey
+from .types import NestKey
 
 
 def key_to_identifier(key: NestKey) -> str:
