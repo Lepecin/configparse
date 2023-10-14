@@ -1,8 +1,8 @@
-from typing import Self
+from typing_extensions import Self
 
-from .argparsing import get_config_path, get_args, askfor_config_path
-from .nesting import Config, gen_setdict, nest_dict, gen_getdict, gen_constants
 from .loaders import ConfigLoader
+from .nesting import Config, nest_dict, gen_getdict, gen_constants
+from .argparsing import get_config_path, get_args, args_to_config
 
 
 class ConfigManager:
@@ -12,37 +12,23 @@ class ConfigManager:
     """
 
     path_internal: str
+    config_loader: ConfigLoader
 
-    def __init__(
-        self: Self,
-        path_internal: str,
-        config_loader: ConfigLoader,
-    ) -> None:
+    def __init__(self: Self, path_internal: str, config_loader: ConfigLoader) -> None:
         self.path_internal = path_internal
         self.config_loader = config_loader
 
     def load_config_from(self: Self, config_path: str) -> Config:
         return self.config_loader.load(config_path)
 
-    def save_config_at(self: Self, internal_path: str, config: Config):
-        self.config_loader.save(internal_path, config)
+    def save_config_at(self: Self, config_path: str, config: Config):
+        self.config_loader.save(config_path, config)
 
-    def set_internal_config(self: Self, path_config: str | None = None):
-        if path_config is None:
-            args, rest = get_config_path()
-        else:
-            args, rest = askfor_config_path(path_config)
-
-        config_path: str = args.config_path
-
+    def save_internal_config(self: Self, default_config_path: str | None = None):
+        config_path, rest = get_config_path(default_config_path)
         config = self.load_config_from(config_path)
-
         args = get_args(config, rest)
-
-        lines = gen_setdict(nest_dict(config))
-        for line in lines:
-            exec(line)
-
+        config = args_to_config(config, args)
         self.save_config_at(self.path_internal, config)
 
     def load_internal_config(self: Self) -> Config:
