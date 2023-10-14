@@ -17,4 +17,4 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/Lepecin/configparse"
-# "Bug Tracker" = ""
+
