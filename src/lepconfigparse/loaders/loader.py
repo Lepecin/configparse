@@ -1,12 +1,26 @@
-from typing import Any, Self
+from typing_extensions import Self
 
-Config = dict[str, Any]
+from .types import Config
+from .abstract import ConfigLoaderAbstract as __ConfigLoaderAbstract
 
 
-class ConfigLoader:
-    def load(self: Self, config_path: str) -> Config:
-        print(f"Pretend load from {config_path}")
-        return {"hello": {"hey": 2, "ho": 3, "yeet": {"halo": 9}}, "sup": 5}
+class TestConfigLoader(__ConfigLoaderAbstract):
+    def load(self: Self, path: str) -> Config:
+        print(f"Load config from {path}")
 
-    def save(self: Self, config_path: str, config: Config):
-        print(f"Pretend saved to {config_path}")
+        test_config = {
+            "hello": {
+                "hey": 2,
+                "ho": 3,
+                "yeet": {
+                    "halo": 9,
+                },
+            },
+            "sup": 5,
+        }
+
+        return test_config
+
+    def save(self: Self, path: str, config: Config):
+        print(f"Saved config to {path}")
+        print(config)
