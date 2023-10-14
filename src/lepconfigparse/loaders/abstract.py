@@ -5,7 +5,7 @@ from typing_extensions import Self
 from .types import Config
 
 
-class ConfigLoaderAbstract(ABC):
+class __ConfigLoaderAbstract(ABC):
     """
     Abstract class for loading and saving config style
     objects into a Python environment.
@@ -25,5 +25,5 @@ class ConfigLoaderAbstract(ABC):
         pass
 
 
-class ConfigLoader(ConfigLoaderAbstract):
+class ConfigLoader(__ConfigLoaderAbstract):
     pass
