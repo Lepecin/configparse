@@ -1,6 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Self
-
 
 from .types import Config
 
@@ -17,11 +15,11 @@ class __ConfigLoaderAbstract(ABC):
     """
 
     @abstractmethod
-    def load(self: Self, path: str) -> Config:
+    def load(self, path: str) -> Config:
         pass
 
     @abstractmethod
-    def save(self: Self, path: str, config: Config):
+    def save(self, path: str, config: Config):
         pass
 
 
