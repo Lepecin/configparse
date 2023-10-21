@@ -57,19 +57,11 @@ def get_args(
     for arg_key, value in config.items():
         argument = arg_prefix + arg_key
 
-        if isinstance(value, bool):
-            parser.add_argument(
-                argument,
-                required=False,
-                action=argparse.BooleanOptionalAction,
-            )
-
-        else:
-            parser.add_argument(
-                argument,
-                required=False,
-                type=value.__class__,
-            )
+        parser.add_argument(
+            argument,
+            required=False,
+            type=value.__class__,
+        )
 
     args = parser.parse_args(rest)
 
