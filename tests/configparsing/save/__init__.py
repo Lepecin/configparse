@@ -8,6 +8,7 @@ path_constants = (pathlib.Path(__file__).parent.parent / "load/constants.py").__
 manager = ConfigManager(
     path_internal,
     JsonConfigLoader(),
+    verbose=True,
 )
 
 manager.save_internal_config(path_internal)

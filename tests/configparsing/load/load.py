@@ -7,6 +7,7 @@ path_internal = (pathlib.Path(__file__).parent.parent / "save/config.json").__st
 manager = ConfigManager(
     path_internal,
     JsonConfigLoader(),
+    verbose=True,
 )
 
 config = manager.load_internal_config()
