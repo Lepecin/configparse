@@ -11,15 +11,31 @@ class ConfigManager:
 
     path_internal: str
     config_loader: ConfigLoader
+    verbose: bool
 
-    def __init__(self, path_internal: str, config_loader: ConfigLoader) -> None:
+    def __init__(
+        self,
+        path_internal: str,
+        config_loader: ConfigLoader,
+        *,
+        verbose: bool = False,
+    ) -> None:
         self.path_internal = path_internal
         self.config_loader = config_loader
+        self.verbose = verbose
 
     def load_config_from(self, config_path: str) -> Config:
-        return self.config_loader.load(config_path)
+        try:
+            print(f"Loading from {config_path}.") if self.verbose else None
+            return self.config_loader.load(config_path)
+        except FileNotFoundError:
+            print(
+                f"No file {config_path} found. Loading empty config."
+            ) if self.verbose else None
+            return {}
 
     def save_config_at(self, config_path: str, config: Config):
+        print(f"Saving to {config_path}") if self.verbose else None
         self.config_loader.save(config_path, config)
 
     def save_internal_config(self, default_config_path: str | None = None):
